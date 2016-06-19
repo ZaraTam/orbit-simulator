@@ -1,0 +1,74 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Orbit simulator</title>
+  <meta name="description" content="Orbit simulator">
+  <meta name="author" content="Zara Tam">
+</head>
+
+<style>
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+</style>
+
+<body>
+  <canvas id="orbit">
+    Your browser doesn’t currently support HTML5 Canvas.
+  </canvas>
+  
+  <script>
+    var canvas = document.getElementById("orbit");
+    var context = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    var starX = starY = 0;
+    var starRadius = 100;
+    var starColour = "orange"
+
+    var planetX = planetY = 0;
+    var planetRadius = 20;
+    var planetColour = "#A3C1AD"
+    var distance = starRadius + planetRadius * 6;
+    var angularSpeed = i = 30 * Math.PI / 180 / 60;
+
+    function drawCircle(centreX, centreY, radius, colour) {
+      context.fillStyle = colour;
+
+      context.beginPath();
+      context.arc(centreX, centreY, radius, 0 * Math.PI, 2 * Math.PI);
+      context.fill();
+    }
+
+    function orbit() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.save();
+      
+      context.translate(canvas.width / 2, canvas.height / 2);
+
+      drawCircle(starX, starY, starRadius, starColour);
+      
+      context.rotate(i);
+      context.translate(distance, 0);
+    
+      drawCircle(planetX, planetY, planetRadius, planetColour);
+      
+      context.restore();
+      
+      i += angularSpeed;
+
+      window.requestAnimationFrame(orbit);            
+    }
+
+    orbit();
+    
+  </script>
+
+</body>
+</html>
