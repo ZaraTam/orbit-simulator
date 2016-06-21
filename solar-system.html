@@ -31,26 +31,89 @@
     // Sun
     var sunX = canvas.width / 2;
     var sunY = canvas.height / 2;
-    var sunRadius = 80;
+    var sunRadius = 20;
     var sunColour = "orange"
+
+    // Mercury
+    var mercuryX = mercuryY = 0;
+    var mercuryRadius = 4;
+    var mercuryColour = "#C0C0C0"
+    var mercuryDistance = 39;
+    var mercuryTheta = 0;
+    var mercuryPeriod = 3;
+    var mercuryFrequency = 1 / mercuryPeriod / 60;
+
+    // Venus
+    var venusX = venusY = 0;
+    var venusRadius = 9;
+    var venusColour = "#FFD700"
+    var venusDistance = 70;
+    var venusTheta = 0;
+    var venusPeriod = 7;
+    var venusFrequency = 1 / venusPeriod / 60;
 
     // Earth
     var earthX = earthY = 0;
-    var earthRadius = 20;
-    var earthColour = "#A3C1AD"
-    var earthDistance = 300;
+    var earthRadius = 10;
+    var earthColour = "#1E90FF"
+    var earthDistance = 100;
     var earthTheta = 0;
     var earthPeriod = 12;
     var earthFrequency = 1 / earthPeriod / 60;
 
     // Moon
     var moonX = moonY = 0;
-    var moonRadius = 10;
+    var moonRadius = 3;
     var moonColour = "#808080"
-    var moonDistance = 50;
+    var moonDistance = 20;
     var moonTheta = 0;
-    var moonPeriod = 1;
+    var moonPeriod = 0.897;
     var moonFrequency = 1 / moonPeriod / 60;
+
+    // Mars
+    var marsX = marsY = 0;
+    var marsRadius = 5;
+    var marsColour = "#FF7F50"
+    var marsDistance = 150;
+    var marsTheta = 0;
+    var marsPeriod = 23;
+    var marsFrequency = 1 / marsPeriod / 60;
+
+    // Jupiter
+    var jupiterX = jupiterY = 0;
+    var jupiterRadius = 110 / 2;
+    var jupiterColour = "#E9967A"
+    var jupiterDistance = 520 / 2;
+    var jupiterTheta = 0;
+    var jupiterPeriod = 142;
+    var jupiterFrequency = 1 / jupiterPeriod / 60;
+
+    // Saturn
+    var saturnX = saturnY = 0;
+    var saturnRadius = 91 / 2;
+    var saturnColour = "#DEB887"
+    var saturnDistance = 950 / 2;
+    var saturnTheta = 0;
+    var saturnPeriod = 353;
+    var saturnFrequency = 1 / saturnPeriod / 60;
+
+    // Uranus
+    var uranusX = uranusY = 0;
+    var uranusRadius = 40 / 2;
+    var uranusColour = "#00CED1"
+    var uranusDistance = 1920 / 3;
+    var uranusTheta = 0;
+    var uranusPeriod = 1008;
+    var uranusFrequency = 1 / uranusPeriod / 60;
+
+    // Neptune
+    var neptuneX = neptuneY = 0;
+    var neptuneRadius = 39 / 2;
+    var neptuneColour = "#4169E1"
+    var neptuneDistance = 3010 / 4;
+    var neptuneTheta = 0;
+    var neptunePeriod = 1977;
+    var neptuneFrequency = 1 / neptunePeriod / 60;
 
     function drawBody(centreX, centreY, radius, colour) {
       context.fillStyle = colour;
@@ -74,6 +137,34 @@
 
       // Sun
       drawBody(sunX, sunY, sunRadius, sunColour);
+
+      // Mercury
+      if (mercuryTheta >= 2 * Math.PI) {
+        mercuryTheta = 0;
+      }
+      else {
+        mercuryTheta += mercuryFrequency;
+      }
+
+      mercuryX = sunX + mercuryDistance * Math.cos(mercuryTheta);
+      mercuryY = sunY + mercuryDistance * Math.sin(mercuryTheta);
+
+      drawOrbitPath(sunX, sunY, mercuryDistance);
+      drawBody(mercuryX, mercuryY, mercuryRadius, mercuryColour);
+
+      // Venus
+      if (venusTheta >= 2 * Math.PI) {
+        venusTheta = 0;
+      }
+      else {
+        venusTheta += venusFrequency;
+      }
+
+      venusX = sunX + venusDistance * Math.cos(venusTheta);
+      venusY = sunY + venusDistance * Math.sin(venusTheta);
+
+      drawOrbitPath(sunX, sunY, venusDistance);
+      drawBody(venusX, venusY, venusRadius, venusColour);
 
       // Earth
       if (earthTheta >= 2 * Math.PI) {
@@ -102,6 +193,76 @@
 
       drawOrbitPath(earthX, earthY, moonDistance);
       drawBody(moonX, moonY, moonRadius, moonColour);
+
+      // Mars
+      if (marsTheta >= 2 * Math.PI) {
+        marsTheta = 0;
+      }
+      else {
+        marsTheta += marsFrequency;
+      }
+
+      marsX = sunX + marsDistance * Math.cos(marsTheta);
+      marsY = sunY + marsDistance * Math.sin(marsTheta);
+
+      drawOrbitPath(sunX, sunY, marsDistance);
+      drawBody(marsX, marsY, marsRadius, marsColour);
+
+      // Jupiter
+      if (jupiterTheta >= 2 * Math.PI) {
+        jupiterTheta = 0;
+      }
+      else {
+        jupiterTheta += jupiterFrequency;
+      }
+
+      jupiterX = sunX + jupiterDistance * Math.cos(jupiterTheta);
+      jupiterY = sunY + jupiterDistance * Math.sin(jupiterTheta);
+
+      drawOrbitPath(sunX, sunY, jupiterDistance);
+      drawBody(jupiterX, jupiterY, jupiterRadius, jupiterColour);
+
+      // Saturn
+      if (saturnTheta >= 2 * Math.PI) {
+        saturnTheta = 0;
+      }
+      else {
+        saturnTheta += saturnFrequency;
+      }
+
+      saturnX = sunX + saturnDistance * Math.cos(saturnTheta);
+      saturnY = sunY + saturnDistance * Math.sin(saturnTheta);
+
+      drawOrbitPath(sunX, sunY, saturnDistance);
+      drawBody(saturnX, saturnY, saturnRadius, saturnColour);
+
+      // Uranus
+      if (uranusTheta >= 2 * Math.PI) {
+        uranusTheta = 0;
+      }
+      else {
+        uranusTheta += uranusFrequency;
+      }
+
+      uranusX = sunX + uranusDistance * Math.cos(uranusTheta);
+      uranusY = sunY + uranusDistance * Math.sin(uranusTheta);
+
+      drawOrbitPath(sunX, sunY, uranusDistance);
+      drawBody(uranusX, uranusY, uranusRadius, uranusColour);
+
+      // Neptune
+      if (neptuneTheta >= 2 * Math.PI) {
+        neptuneTheta = 0;
+      }
+      else {
+        neptuneTheta += neptuneFrequency;
+      }
+
+      neptuneX = sunX + neptuneDistance * Math.cos(neptuneTheta);
+      neptuneY = sunY + neptuneDistance * Math.sin(neptuneTheta);
+
+      drawOrbitPath(sunX, sunY, neptuneDistance);
+      drawBody(neptuneX, neptuneY, neptuneRadius, neptuneColour);
 
       window.requestAnimationFrame(orbit);
     }
