@@ -1,0 +1,201 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Solar system</title>
+  <meta name="description" content="A solar system simulator">
+  <meta name="author" content="Zara Tam">
+</head>
+
+<style>
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+</style>
+
+<body>
+  <canvas id="orbit">
+    Your browser doesn’t currently support HTML5 Canvas.
+  </canvas>
+
+  <script>
+    var canvas = document.getElementById("orbit");
+    var context = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight * 1.8;
+
+    var sun = {
+      x : canvas.width / 2,
+      y : canvas.height / 2,
+      radius : 20,
+      colour : "orange"
+    };
+
+    var mercury = {
+      x : 0,
+      y : 0,
+      radius : 4,
+      colour : "#C0C0C0",
+      distance : 39,
+      theta : 0,
+      period : 3,
+      get frequency() {
+        return 1 / this.period * 2 * Math.PI / 60;
+      }
+    };
+
+    var venus = {
+      x : 0,
+      y : 0,
+      radius : 9,
+      colour : "#FFD700",
+      distance : 70,
+      theta : 0,
+      period : 7,
+      get frequency() {
+        return 1 / this.period * 2 * Math.PI / 60;
+      }
+    };
+
+    var earth = {
+      x : 0,
+      y : 0,
+      radius : 10,
+      colour : "#1E90FF",
+      distance : 100,
+      theta : 0,
+      period : 12,
+      get frequency() {
+        return 1 / this.period * 2 * Math.PI / 60;
+      }
+    };
+
+    var moon = {
+      x : 0,
+      y : 0,
+      radius : 3,
+      colour : "#808080",
+      distance : 20,
+      theta : 0,
+      period : 0.897,
+      get frequency() {
+        return 1 / this.period * 2 * Math.PI / 60;
+      }
+    };
+
+    var mars = {
+      x : 0,
+      y : 0,
+      radius : 5,
+      colour : "#FF7F50",
+      distance : 150,
+      theta : 0,
+      period : 23,
+      get frequency() {
+        return 1 / this.period * 2 * Math.PI / 60;
+      }
+    };
+
+    var jupiter = {
+      x : 0,
+      y : 0,
+      radius : 110 / 2,
+      colour : "#E9967A",
+      distance : 520 / 2,
+      theta : 0,
+      period : 142,
+      get frequency() {
+        return 1 / this.period * 2 * Math.PI / 60;
+      }
+    };
+
+    var saturn = {
+      x : 0,
+      y : 0,
+      radius : 91 / 2,
+      colour : "#DEB887",
+      distance : 950 / 2,
+      theta : 0,
+      period : 353,
+      get frequency() {
+        return 1 / this.period * 2 * Math.PI / 60;
+      }
+    };
+
+    var uranus = {
+      x : 0,
+      y : 0,
+      radius : 40 / 2,
+      colour : "#00CED1",
+      distance : 1920 / 3,
+      theta : 0,
+      period : 1008,
+      get frequency() {
+        return 1 / this.period * 2 * Math.PI / 60;
+      }
+    };
+
+    var neptune = {
+      x : 0,
+      y : 0,
+      radius : 39 / 2,
+      colour : "#4169E1",
+      distance : 3010 / 4,
+      theta : 0,
+      period : 1977,
+      get frequency() {
+        return 1 / this.period * 2 * Math.PI / 60;
+      }
+    };
+
+    var planet = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune];
+
+    function drawBody(centreX, centreY, radius, colour) {
+      context.fillStyle = colour;
+
+      context.beginPath();
+      context.arc(centreX, centreY, radius, 0 * Math.PI, 2 * Math.PI);
+      context.fill();
+    }
+
+    function drawOrbitPath(centreX, centreY, radius) {
+      context.strokeStyle = "#E6E6E6";
+      context.lineWidth = 1;
+
+      context.beginPath();
+      context.arc(centreX, centreY, radius, 0 * Math.PI, 2 * Math.PI);
+      context.stroke();
+    }
+
+    function orbit() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      drawBody(sun.x, sun.y, sun.radius, sun.colour);
+
+      for (var i = 0; i < planet.length; i++) {
+        planet[i].theta = (planet[i].theta + planet[i].frequency) % (2 * Math.PI);
+        planet[i].x = sun.x + planet[i].distance * Math.cos(planet[i].theta);
+        planet[i].y = sun.y + planet[i].distance * Math.sin(planet[i].theta);
+
+        drawOrbitPath(sun.x, sun.y, planet[i].distance);
+        drawBody(planet[i].x, planet[i].y, planet[i].radius, planet[i].colour);
+      }
+
+      drawBody(moon.x, moon.y, moon.radius, moon.colour);
+      moon.theta = (moon.theta + moon.frequency) % (2 * Math.PI);
+      moon.x = earth.x + moon.distance * Math.cos(moon.theta);
+      moon.y = earth.y + moon.distance * Math.sin(moon.theta);
+
+      window.requestAnimationFrame(orbit);
+    }
+
+    orbit();
+
+  </script>
+
+</body>
+</html>
