@@ -1,4 +1,4 @@
-# Solar system
+# Solar system simulator
 
 Object size and distance are not to scale
 
