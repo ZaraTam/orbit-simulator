@@ -2,7 +2,7 @@
 
 A solar system orbiting in your browser 🌎 🪐 😎
 
-Demo: https://zaratam.github.io/solar-system/
+Website: https://zaratam.github.io/solar-system/
 
 Object size and distance are not to scale
 
@@ -10,4 +10,4 @@ Object size and distance are not to scale
 
 ## Licence
 
-This project is licensed under the MIT License - see [LICENSE](https://github.com/ZaraTam/solar-system/blob/master/LICENSE) for details
+This project is licensed under the GNU General Public License v3.0 - see [LICENSE](https://github.com/ZaraTam/solar-system/blob/master/LICENSE) for details
